@@ -85,21 +85,21 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center">Welcome to MY WATCHLIST</h1>
+      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-8 text-center">Welcome to MY WATCHLIST</h1>
       {!isSearching && (
-        <div className="mb-8 relative">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4">Popular Movies</h2>
+        <div className="mb-4 sm:mb-8 relative">
+          <h2 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">Popular Movies</h2>
           <Slider {...sliderSettings}>
             {popularMovies.map((movie) => (
-              <div key={movie.id} className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] cursor-pointer" onClick={() => handleCarouselClick(movie)}>
+              <div key={movie.id} className="relative h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] cursor-pointer" onClick={() => handleCarouselClick(movie)}>
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                   alt={movie.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-4 sm:p-6 md:p-8">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2">{movie.title}</h3>
-                  <p className="text-sm sm:text-base md:text-lg line-clamp-2 sm:line-clamp-3">{movie.overview}</p>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-2 sm:p-4 md:p-6">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1">{movie.title}</h3>
+                  <p className="text-xs sm:text-sm md:text-base line-clamp-2">{movie.overview}</p>
                 </div>
               </div>
             ))}
@@ -110,16 +110,16 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
       <h2 className="text-xl sm:text-2xl font-bold mb-4">
         {isSearching ? `Search Results for "${searchQuery}"` : "All Movies"}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
         {movies.map((movie) => (
           <Card
             key={movie.id}
             poster_path={movie.poster_path}
-            watchList={watchList}
-            movieName={movie.original_title}
+            movieName={movie.title}
             movie={movie}
             handleAddWatchList={handleAddWatchList}
             handleRemoveFromWatchlist={handleRemoveFromWatchlist}
+            watchList={watchList}
             onCardClick={handleCardClick}
           />
         ))}

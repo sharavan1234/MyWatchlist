@@ -1,87 +1,62 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Navbar from "./components/navbar.jsx";
+import Navbar from "./components/Navbar.jsx";
 import Home from "./components/Home.jsx";
 import Watchlist from "./components/Watchlist.jsx";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [watchList, setWatchList] = useState(() => {
-    // Initialize watchList from localStorage or empty array if not found
-    const savedWatchList = localStorage.getItem("watchList");
-    return savedWatchList ? JSON.parse(savedWatchList) : [];
-  });
-  const [darkMode, setDarkMode] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [darkMode, setDarkMode] = useState(true); // Set default to true
+  const [watchList, setWatchList] = useState([]);
 
   useEffect(() => {
-    // Save watchList to localStorage whenever it changes
-    localStorage.setItem("watchList", JSON.stringify(watchList));
-  }, [watchList]);
-
-  useEffect(() => {
-    // Apply dark mode class to html element
-    document.documentElement.classList.toggle("dark", darkMode);
+    // Apply dark mode class to HTML element
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, [darkMode]);
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   const handleAddWatchList = (movie) => {
-    setWatchList((prevList) => {
-      if (!prevList.some((m) => m.id === movie.id)) {
-        return [...prevList, movie];
-      }
-      return prevList;
-    });
+    setWatchList((prevList) => [...prevList, movie]);
   };
 
   const handleRemoveFromWatchlist = (movie) => {
     setWatchList((prevList) => prevList.filter((m) => m.id !== movie.id));
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-  };
-
   return (
-    <BrowserRouter>
-      <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
-        <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
-          <Navbar
-            darkMode={darkMode}
-            toggleDarkMode={toggleDarkMode}
-            onSearch={handleSearch}
+    <Router>
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <Routes>
+          <Route 
+            path="/" 
+            element={
+              <Home 
+                handleAddWatchList={handleAddWatchList}
+                handleRemoveFromWatchlist={handleRemoveFromWatchlist}
+                watchList={watchList}
+              />
+            } 
           />
-          <div className="container mx-auto px-4 py-8">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Home
-                    watchList={watchList}
-                    handleAddWatchList={handleAddWatchList}
-                    handleRemoveFromWatchlist={handleRemoveFromWatchlist}
-                    searchQuery={searchQuery}
-                  />
-                }
+          <Route 
+            path="/watchlist" 
+            element={
+              <Watchlist 
+                watchList={watchList}
+                handleRemoveFromWatchlist={handleRemoveFromWatchlist}
               />
-              <Route
-                path="/watchlist"
-                element={
-                  <Watchlist
-                    watchList={watchList}
-                    handleRemoveFromWatchlist={handleRemoveFromWatchlist}
-                    handleAddWatchList={handleAddWatchList}
-                  />
-                }
-              />
-            </Routes>
-          </div>
-        </div>
+            } 
+          />
+        </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 };
 
