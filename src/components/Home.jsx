@@ -22,6 +22,7 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
   const [pgno, setpgno] = useState(1);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [localSearchQuery, setLocalSearchQuery] = useState('');
 
   const fetchMovieDetails = async (movieId) => {
     try {
@@ -83,9 +84,33 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
     setSelectedMovie(null);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetchMovies(1, localSearchQuery);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-8 text-center">Welcome to MY WATCHLIST</h1>
+      
+      <form onSubmit={handleSearch} className="mb-4 sm:mb-8">
+        <div className="flex items-center">
+          <input
+            type="text"
+            value={localSearchQuery}
+            onChange={(e) => setLocalSearchQuery(e.target.value)}
+            placeholder="Search for movies..."
+            className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600 transition-colors duration-200"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+
       {!isSearching && (
         <div className="mb-4 sm:mb-8 relative">
           <h2 className="text-lg sm:text-xl font-bold mb-2 sm:mb-4">Popular Movies</h2>
