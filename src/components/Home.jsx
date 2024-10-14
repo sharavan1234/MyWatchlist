@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Card from "./Card";
-import MovieDetails from "./MovieDetails";
+import Moviedetails from "./Moviedetails";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -148,7 +148,7 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
       )}
 
       {selectedMovie && (
-        <MovieDetails
+        <Moviedetails
           movie={selectedMovie}
           onClose={handleCloseDetails}
           isInWatchlist={watchList.some((m) => m.id === selectedMovie.id)}
