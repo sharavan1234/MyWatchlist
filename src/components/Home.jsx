@@ -9,10 +9,10 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const CustomArrow = ({ direction, onClick }) => (
   <button
-    className={`absolute z-10 top-1/2 transform -translate-y-1/2 ${direction === 'prev' ? 'left-4' : 'right-4'} bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-2 rounded-full shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300`}
+    className={`absolute z-10 top-1/2 transform -translate-y-1/2 ${direction === 'prev' ? 'left-2 sm:left-4' : 'right-2 sm:right-4'} bg-white dark:bg-gray-800 text-gray-800 dark:text-white p-1 sm:p-2 rounded-full shadow-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300`}
     onClick={onClick}
   >
-    {direction === 'prev' ? <FaChevronLeft size={24} /> : <FaChevronRight size={24} />}
+    {direction === 'prev' ? <FaChevronLeft size={16} className="sm:w-6 sm:h-6" /> : <FaChevronRight size={16} className="sm:w-6 sm:h-6" />}
   </button>
 );
 
@@ -85,21 +85,21 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Welcome to MY WATCHLIST</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center">Welcome to MY WATCHLIST</h1>
       {!isSearching && (
         <div className="mb-8 relative">
-          <h2 className="text-2xl font-bold mb-4">Popular Movies</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4">Popular Movies</h2>
           <Slider {...sliderSettings}>
             {popularMovies.map((movie) => (
-              <div key={movie.id} className="relative h-[70vh] cursor-pointer" onClick={() => handleCarouselClick(movie)}>
+              <div key={movie.id} className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] cursor-pointer" onClick={() => handleCarouselClick(movie)}>
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                   alt={movie.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-8">
-                  <h3 className="text-3xl font-bold mb-2">{movie.title}</h3>
-                  <p className="text-lg">{movie.overview}</p>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-4 sm:p-6 md:p-8">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2">{movie.title}</h3>
+                  <p className="text-sm sm:text-base md:text-lg line-clamp-2 sm:line-clamp-3">{movie.overview}</p>
                 </div>
               </div>
             ))}
@@ -107,10 +107,10 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
         </div>
       )}
 
-      <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4">
         {isSearching ? `Search Results for "${searchQuery}"` : "All Movies"}
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
         {movies.map((movie) => (
           <Card
             key={movie.id}
@@ -132,7 +132,7 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
                 setpgno(pgno - 1);
               }
             }}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded text-sm sm:text-base"
             disabled={pgno === 1}
           >
             ←
@@ -140,7 +140,7 @@ const Home = ({ handleAddWatchList, handleRemoveFromWatchlist, watchList, search
           <span className="p-2 font-bold">{pgno}</span>
           <button
             onClick={() => setpgno(pgno + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 sm:py-2 sm:px-4 rounded text-sm sm:text-base"
           >
             →
           </button>

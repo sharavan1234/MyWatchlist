@@ -68,14 +68,14 @@ const Watchlist = ({ watchList, handleRemoveFromWatchlist, handleAddWatchList })
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">MY WATCHLIST</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center">MY WATCHLIST</h1>
       
       <div className="mb-6 flex flex-wrap justify-center gap-2">
         {genres.map(genre => (
           <button
             key={genre}
             onClick={() => handleGenreClick(genre)}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded-full ${
               activeGenres.includes(genre)
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
@@ -97,7 +97,7 @@ const Watchlist = ({ watchList, handleRemoveFromWatchlist, handleAddWatchList })
         <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
         {filteredWatchList.map(movie => (
           <Card
             key={movie.id}
