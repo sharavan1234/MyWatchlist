@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Card from './Card';
-import MovieDetails from './MovieDetails';
+import MovieDetails from './Moviedetails';
 
 const Watchlist = ({ watchList, handleRemoveFromWatchlist, handleAddWatchList }) => {
   const [searchTerm, setSearchTerm] = useState('');
